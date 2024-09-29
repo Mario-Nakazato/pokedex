@@ -2,13 +2,15 @@
     <div class="card">
         <div class="card-body row">
             <div class="col-xl-4 col-lg-6 col-sm-6" v-for="pokemon in pokemons" :key="pokemon.id">
-                <div class="card mb-3 p-3" :style="getCardStyle(pokemon.types)">
-                    <img :src="pokemon.image" class="card-img-top" :alt="pokemon.name" height="128">
-                    <div class="card-body text-center">
-                        <h5 class="card-title text-dark">{{ capitalizeFirstLetter(pokemon.name) }}</h5>
-                        <span class="badge text-dark">{{ pokemon.id }}</span>
+                <RouterLink :to="{ name: 'PokemonDetails', params: { id: pokemon.id } }">
+                    <div class="card mb-3 p-3" :style="getCardStyle(pokemon.types)">
+                        <img :src="pokemon.image" class="card-img-top" :alt="pokemon.name" height="128" />
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-dark">{{ capitalizeFirstLetter(pokemon.name) }}</h5>
+                            <span class="badge text-dark">{{ pokemon.id }}</span>
+                        </div>
                     </div>
-                </div>
+                </RouterLink>
             </div>
         </div>
     </div>
@@ -128,4 +130,16 @@ const capitalizeFirstLetter = (name: string) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Remover o sublinhado e a cor azul do RouterLink */
+a {
+    text-decoration: none;
+    color: inherit;
+    /* Herdar a cor do conteúdo pai */
+}
+
+a:hover {
+    text-decoration: none;
+    /* Garantir que não tenha sublinhado no hover */
+}
+</style>
