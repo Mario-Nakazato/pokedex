@@ -9,12 +9,12 @@ const routes = [
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     {
-        path: '/pag',
-        component: () => import('../views/Pag.vue')
-    },
-    {
         path: '/pokedex',
         component: () => import('../views/Pokedex.vue')
+    },
+    {
+        path: '/favorites',
+        component: () => import('../views/Favorites.vue')
     },
 ];
 
