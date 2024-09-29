@@ -13,6 +13,11 @@ const routes = [
         component: () => import('../views/Pokedex.vue')
     },
     {
+        path: '/pokemon/:id',
+        component: () => import('../views/PokemonDetails.vue'),
+        name: 'PokemonDetails'
+    },
+    {
         path: '/favorites',
         component: () => import('../views/Favorites.vue')
     },
