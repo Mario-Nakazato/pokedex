@@ -27,7 +27,6 @@ interface Pokemon {
     types: string[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<{
     pokemons: Pokemon[];
 }>();

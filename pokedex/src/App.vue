@@ -17,39 +17,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const tipos: string[] = [
-    'fire',
-    'water',
-    'grass',
-    'electric',
-    'ice',
-    'fighting',
-    'poison',
-    'ground',
-    'flying',
-    'psychic',
-    'bug',
-    'rock',
-    'ghost',
-    'dragon',
-    'dark',
-    'steel',
-    'fairy',
-    'normal',
+    'fire', 'water', 'grass', 'electric', 'ice', 'fighting', 'poison', 'ground',
+    'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy', 'normal',
 ];
 
 const searchQuery = ref('');
 const selectedTypes = ref<string[]>([]);
 const router = useRouter();
 
+// Atualiza a URL quando a pesquisa ou os filtros mudam
+watch([searchQuery, selectedTypes], () => {
+    router.push({
+        path: '/pokedex',
+        query: {
+            search: searchQuery.value || undefined,
+            types: selectedTypes.value.length ? selectedTypes.value : undefined
+        }
+    });
+});
+
+// Função para navegar para a página de Pokedex com a pesquisa
 const handleSearch = () => {
-    const query = searchQuery.value;
-    router.push({ path: '/pokedex', query: { search: query, types: selectedTypes.value } });
+    router.push({
+        path: '/pokedex',
+        query: {
+            search: searchQuery.value || undefined,
+            types: selectedTypes.value.length ? selectedTypes.value : undefined
+        }
+    });
 };
 
+// Função de limpar o formulário
 const clearForm = () => {
     searchQuery.value = '';
     selectedTypes.value = [];
