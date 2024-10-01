@@ -1,11 +1,11 @@
 <template>
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-custom">
         <div class="container">
             <RouterLink to="/pokedex" class="navbar-brand">Pokedex</RouterLink>
             <form class="d-flex col-md-6 col-12" role="search" @submit.prevent="handleSearch">
                 <input v-model="searchQuery" class="form-control me-2" type="search"
                     placeholder="Pesquisar por nome ou número" aria-label="Search" />
-                <select v-model="selectedTypes" multiple class="form-select me-2">
+                <select v-model="selectedTypes" multiple class="form-select me-2" style="height: 48px;">
                     <option v-for="tipo in tipos" :key="tipo" :value="tipo">{{ tipo }}</option>
                 </select>
                 <button class="btn btn-outline-danger" type="button" @click="clearForm">Limpar</button>
@@ -29,7 +29,6 @@ const searchQuery = ref('');
 const selectedTypes = ref<string[]>([]);
 const router = useRouter();
 
-// Atualiza a URL quando a pesquisa ou os filtros mudam
 watch([searchQuery, selectedTypes], () => {
     router.push({
         path: '/pokedex',
@@ -40,7 +39,6 @@ watch([searchQuery, selectedTypes], () => {
     });
 });
 
-// Função para navegar para a página de Pokedex com a pesquisa
 const handleSearch = () => {
     router.push({
         path: '/pokedex',
@@ -51,11 +49,56 @@ const handleSearch = () => {
     });
 };
 
-// Função de limpar o formulário
 const clearForm = () => {
     searchQuery.value = '';
     selectedTypes.value = [];
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.bg-custom {
+    background-color: #2E2E2E;
+}
+
+.navbar {
+    background-color: #2E2E2E;
+    border-bottom: 4px solid #FF4500;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    color: #FFD700;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.navbar-brand:hover {
+    color: #FFA500;
+}
+
+.form-control {
+    border: 2px solid #FFD700;
+    background-color: #FFFFFF;
+}
+
+.form-control:focus {
+    border-color: #FF4500;
+    box-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+}
+
+.form-select {
+    border: 2px solid #FFD700;
+    background-color: #FFFFFF;
+}
+
+.btn-outline-danger {
+    color: #FF4500;
+    border-color: #FF4500;
+}
+
+.btn-outline-danger:hover {
+    background-color: #FF4500;
+    color: #FFFFFF;
+}
+</style>
