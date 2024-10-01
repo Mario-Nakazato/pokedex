@@ -144,17 +144,24 @@ const fetchPokemonDetails = async () => {
         const speciesResponse = await axios.get(data.species.url);
         const evolutionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
 
-        let currentEvolution = evolutionResponse.data.chain;
-        while (currentEvolution) {
-            const evolutionDetails = await axios.get(`https://pokeapi.co/api/v2/pokemon/${currentEvolution.species.name}`);
+        const getEvolutions = async (evolutionData: any) => {
+            const evolutionDetails = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evolutionData.species.name}`);
             evolutionChain.value.push({
                 id: evolutionDetails.data.id,  // Adicionando ID da evolução
-                name: currentEvolution.species.name,
+                name: evolutionData.species.name,
                 image: evolutionDetails.data.sprites.other.dream_world.front_default,
                 types: evolutionDetails.data.types.map((type: { type: { name: string } }) => type.type.name), // Adicionando tipos
             });
-            currentEvolution = currentEvolution.evolves_to[0];
-        }
+
+            // Se houver mais evoluções, chama recursivamente
+            if (evolutionData.evolves_to.length > 0) {
+                for (const nextEvolution of evolutionData.evolves_to) {
+                    await getEvolutions(nextEvolution);
+                }
+            }
+        };
+
+        await getEvolutions(evolutionResponse.data.chain); // Começa com o primeiro Pokémon da cadeia
     } catch (error) {
         console.error('Erro ao buscar detalhes do Pokémon:', error);
     }
