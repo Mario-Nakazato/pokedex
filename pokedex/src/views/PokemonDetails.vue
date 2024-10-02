@@ -1,5 +1,6 @@
 <template>
-	<div class="d-flex justify-content-center">
+	<div class="d-flex justify-content-center"
+		style="background-color: #ff7029; box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);">
 		<div class="card-body">
 			<div v-if="pokemon" class="container mt-4">
 				<!-- Card para o Pokémon -->

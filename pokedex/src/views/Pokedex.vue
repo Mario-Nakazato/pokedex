@@ -1,5 +1,6 @@
 <template>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center"
+        style="background-color: #ff7029; box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);">
         <div class="col-sm-12 col-lg-6">
             <CardList :pokemons="pokemons"></CardList>
             <div v-if="loading" class="text-center mt-3">
