@@ -1,13 +1,16 @@
 <template>
-	<div class="container mt-5">
-		<h1 class="text-center mb-4">Pokémons Favoritos</h1>
-		<div v-if="favoritePokemons.length > 0">
-			<CardList :pokemons="favoritePokemons" />
-		</div>
-		<div v-else class="text-center">
-			<p>Nenhum Pokémon favoritado ainda.</p>
-		</div>
-	</div>
+    <div class="d-flex justify-content-center"
+        style="background-color: #ff7029; box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);">
+        <div class="col-sm-12 col-lg-6">
+            <div v-if="favoritePokemons.length > 0">
+                <h1 class="text-center mb-4">Pokémons Favoritos</h1>
+                <CardList :pokemons="favoritePokemons" />
+            </div>
+            <div v-else class="text-center">
+                <h2 class="mb-4">Nenhum Pokémon favoritado ainda.</h2>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -15,10 +18,10 @@ import { ref, onMounted } from 'vue';
 import CardList from '../components/CardList.vue';
 
 interface Pokemon {
-	id: number;
-	name: string;
-	image: string;
-	types: string[];
+    id: number;
+    name: string;
+    image: string;
+    types: string[];
 }
 
 const favoritePokemons = ref<Pokemon[]>([]);
@@ -50,11 +53,11 @@ onMounted(() => {
 
 <style scoped>
 .container {
-	max-width: 900px;
-	margin: 0 auto;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 h1 {
-	color: #ff7029;
+    color: #000000;
 }
 </style>
