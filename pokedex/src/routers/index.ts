@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
 import NotFound from '../views/NotFound.vue';
 
 const routes = [
     {
         path: '/',
-        component: Home
+        component: () => import('../views/Pokedex.vue')
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     {
@@ -20,6 +19,10 @@ const routes = [
     {
         path: '/favorites',
         component: () => import('../views/Favorites.vue')
+    },
+    {
+        path: '/esteregg',
+        component: () => import('../views/Home.vue')
     },
 ];
 
