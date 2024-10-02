@@ -19,6 +19,19 @@ Este projeto é uma aplicação desenvolvida em Vue.js 3 utilizando a Compositio
 - A aplicação foi otimizada para ser **responsiva**, funcionando bem tanto em dispositivos móveis quanto em desktops.
 - **Otimizações** foram feitas para garantir uma boa performance e uma experiência de usuário agradável.
 
+## **Funcionalidades Extras (Opcional)**
+
+
+- **Paginação**:
+    - A opção de scroll infinito foi adicionada, melhorando a experiência do usuário ao navegar pela lista de Pokémon.
+
+- **Filtros Dinâmicos**:
+    - Filtros dinâmicos foram implementados, com atualização instantânea da listagem.
+
+- **Favoritos**:
+    - Os usuários podem marcar Pokémon como favoritos, com a lista armazenada localmente.
+    - Foi implementada uma seção dedicada para listar os Pokémon favoritos.
+
 ## **Tecnologias Utilizadas**
 - **Vue.js 3** com **Composition API** para estruturação da interface e manipulação de dados.
 - **Vite** para empacotamento e desenvolvimento rápido.
@@ -77,10 +90,3 @@ Este projeto é uma aplicação desenvolvida em Vue.js 3 utilizando a Compositio
 - **UI e Responsividade**: A adoção do Bootstrap possibilita a criação de uma interface responsiva de maneira ágil e eficiente. Essa escolha reduz a necessidade de customizações complexas em CSS, garantindo que o layout se adapte perfeitamente a diferentes dispositivos e tamanhos de tela.
 
 - **Requisições HTTP**: O Axios foi escolhido como ferramenta para gerenciar requisições HTTP, simplificando a integração com APIs externas e tornando o tratamento de respostas assíncronas mais intuitivo, resultando em uma experiência de desenvolvimento mais fluida e menos propensa a erros.
-
-
-## Funcionalidades Adicionais
-
-- Paginação com opção de scroll infinito para melhorar a experiência do usuário ao navegar pela lista de Pokémon.
-  
-- Filtros dinâmicos com atualização instantânea da listagem.
