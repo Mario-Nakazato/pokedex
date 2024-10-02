@@ -43,7 +43,14 @@ const fetchPokemons = async () => {
 
     try {
         const searchQuery = route.query.search || '';
-        const selectedTypes = route.query.types ? [].concat(route.query.types) : [];
+        let selectedTypes: string[] = [];
+
+        // Verifica se types é um array e filtra valores nulos ou indefinidos
+        if (Array.isArray(route.query.types)) {
+            selectedTypes = route.query.types.filter((type): type is string => type !== null && type !== undefined);
+        } else if (typeof route.query.types === 'string') {
+            selectedTypes = [route.query.types];
+        }
 
         if (selectedTypes.length > 0 && !searchQuery) {
             // Buscar Pokémon por tipo
@@ -62,6 +69,7 @@ const fetchPokemons = async () => {
         loading.value = false;
     }
 };
+
 
 const fetchDefaultPokemons = async () => {
     const response = await axios.get(
