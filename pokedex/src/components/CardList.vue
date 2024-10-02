@@ -2,15 +2,21 @@
     <div class="card">
         <div class="card-body row">
             <div class="col-xl-4 col-lg-6 col-sm-6" v-for="pokemon in props.pokemons" :key="pokemon.id">
-                <RouterLink :to="{ name: 'PokemonDetails', params: { id: pokemon.id } }">
-                    <div class="card mb-3 p-3" :style="getCardStyle(pokemon.types)">
-                        <img :src="pokemon.image" class="card-img-top" :alt="pokemon.name" height="128" />
-                        <div class="card-body text-center">
-                            <h5 class="card-title text-dark">{{ capitalizeFirstLetter(pokemon.name) }}</h5>
-                            <span class="badge text-dark">{{ pokemon.id }}</span>
+                <div class="pokemon-card">
+                    <RouterLink :to="{ name: 'PokemonDetails', params: { id: pokemon.id } }">
+                        <div class="card mb-3 p-3" :style="getCardStyle(pokemon.types)">
+                            <img :src="pokemon.image" class="card-img-top" :alt="pokemon.name" height="128" />
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-dark">{{ capitalizeFirstLetter(pokemon.name) }}</h5>
+                                <span class="badge text-dark">{{ pokemon.id }}</span>
+                            </div>
                         </div>
-                    </div>
-                </RouterLink>
+                    </RouterLink>
+                    <button @click="toggleFavorite(pokemon.id)" class="favorite-btn">
+                        <span v-if="isFavorite(pokemon.id)">❤️</span>
+                        <span v-else>🤍</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -18,9 +24,8 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { defineProps } from 'vue';
+import { defineProps, reactive, onMounted } from 'vue';
 
-// Define a interface for the Pokemon
 interface Pokemon {
     id: number;
     name: string;
@@ -28,10 +33,32 @@ interface Pokemon {
     types: string[];
 }
 
-// Define the props for the component, including pokemons
 const props = defineProps<{
     pokemons: Pokemon[];
 }>();
+
+const favorites = reactive<number[]>([]);
+
+onMounted(() => {
+    const savedFavorites = localStorage.getItem('favorites');
+    if (savedFavorites) {
+        favorites.push(...JSON.parse(savedFavorites));
+    }
+});
+
+const toggleFavorite = (pokemonId: number) => {
+    const index = favorites.indexOf(pokemonId);
+    if (index === -1) {
+        favorites.push(pokemonId);
+    } else {
+        favorites.splice(index, 1);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+};
+
+const isFavorite = (pokemonId: number) => {
+    return favorites.includes(pokemonId);
+};
 
 const getCardStyle = (types: string[]) => {
     const typeColors: { [key: string]: string } = {
@@ -75,5 +102,20 @@ a {
 
 a:hover {
     text-decoration: none;
+}
+
+.pokemon-card {
+    position: relative;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ff0000;
 }
 </style>
