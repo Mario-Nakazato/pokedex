@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body row">
-            <div class="col-xl-4 col-lg-6 col-sm-6" v-for="pokemon in pokemons" :key="pokemon.id">
+            <div class="col-xl-4 col-lg-6 col-sm-6" v-for="pokemon in props.pokemons" :key="pokemon.id">
                 <RouterLink :to="{ name: 'PokemonDetails', params: { id: pokemon.id } }">
                     <div class="card mb-3 p-3" :style="getCardStyle(pokemon.types)">
                         <img :src="pokemon.image" class="card-img-top" :alt="pokemon.name" height="128" />
@@ -17,9 +17,10 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import { RouterLink } from 'vue-router';
+import { defineProps } from 'vue';
 
+// Define a interface for the Pokemon
 interface Pokemon {
     id: number;
     name: string;
@@ -27,6 +28,7 @@ interface Pokemon {
     types: string[];
 }
 
+// Define the props for the component, including pokemons
 const props = defineProps<{
     pokemons: Pokemon[];
 }>();
